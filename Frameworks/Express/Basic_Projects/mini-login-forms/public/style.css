@@ -1,0 +1,15 @@
+body {
+    background-color: rgb(39, 39, 141);
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#form input {
+    border-radius: 25px;
+}

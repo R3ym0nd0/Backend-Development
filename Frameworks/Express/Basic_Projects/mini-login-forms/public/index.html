@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Practice</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+
+    <div id="form">
+        <input type="text" placeholder="Type Username" id="username" name="username">
+        <input type="password" placeholder="Type password" id="password" name="password">
+        
+        <button type="submit" id="submit">Submit</button>
+    </div>
+    <script>
+
+        const submit = document.querySelector("#submit");
+
+        submit.addEventListener("click", async () => {
+            const username = document.querySelector("#username").value.trim();
+            const password = document.querySelector("#password").value.trim();
+
+            try {
+                const res = await fetch("data.json");
+                const data = await res.json();
+
+                let isLoggedIn = false;
+
+                for (const user of data) {
+                    if (username === user.username && password === user.password) {
+                        isLoggedIn = true;
+                        LoginSuccess(user.username);
+                        break;
+                    }
+                }
+
+                if (!isLoggedIn) {
+                    LoginFailed();
+                }
+
+            } catch (err) {
+                console.error("Something went wrong. Please try again later.");
+            }
+        });
+
+        function LoginSuccess(user) {
+            const h2 = document.createElement("h2");
+            h2.textContent = `Welcome ${user}`
+            document.body.append(h2);
+        };
+
+        function LoginFailed() {
+            const h2 = document.createElement("h2");
+            h2.textContent = `Login Failed! Please Try Again.`
+            document.body.append(h2);
+        };
+
+    </script> 
+
+</body>
+</html>
