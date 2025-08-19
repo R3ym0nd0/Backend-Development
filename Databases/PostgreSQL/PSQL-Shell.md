@@ -68,3 +68,7 @@ Then
 ### 9. Quit psql
 
     \q
+
+### 10. Open text editor
+
+    \e
