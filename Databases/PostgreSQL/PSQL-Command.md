@@ -47,3 +47,21 @@ Remove rows:
 ### 7. Safe Login Query (Parameterized Query)
 
     SELECT * FROM users WHERE LOWER(username) = LOWER($1) AND password = $2', [username, password]
+
+### 8. Sorting
+
+    SELECT username, password
+    FROM users
+    ORDER BY username ASC, password DESC;
+
+### 9. Remove Duplicates
+
+    SELECT DISTINCT username
+    FROM users;
+
+### 10. Add a new column to an existing table
+
+    ALTER TABLE users
+    ADD COLUMN email VARCHAR(100),
+    ADD COLUMN created_at TIMESTAMP DEFAULT NOW(),
+    ADD COLUMN age INTEGER;
