@@ -1,4 +1,4 @@
-# PSQL Command Basics
+# PostgreSQL Syntax and Examples
 
 ### 1. Create Tables
 
@@ -65,3 +65,45 @@ Remove rows:
     ADD COLUMN email VARCHAR(100),
     ADD COLUMN created_at TIMESTAMP DEFAULT NOW(),
     ADD COLUMN age INTEGER;
+
+### 11. Comparison Operator
+
+    | Operator                  | Meaning                            | Example                                 |
+    | ------------------------- | ---------------------------------- | --------------------------------------- |
+    |  =                        | Equal to                           |  WHERE age = 18                         |
+    |  <>                       | Not equal to (standard SQL)        |  WHERE age <> 18                        |
+    |  !=                       | Not equal to (works in PostgreSQL) |  WHERE age != 18                        |
+    |  >                        | Greater than                       |  WHERE age > 18                         |
+    |  <                        | Less than                          |  WHERE age < 18                         |
+    |  >=                       | Greater than or equal              |  WHERE age >= 18                        |
+    |  <=                       | Less than or equal                 |  WHERE age <= 18                        |
+    |  BETWEEN ... AND ...      | Inclusive range                    |  WHERE age BETWEEN 18 AND 30            |
+    |  IN (...)                 | Matches any in a list              |  WHERE username IN ('reymond','admin')  |
+    |  LIKE                     | Pattern match                      |  WHERE username LIKE 'rey%'             |
+    |  IS NULL  /  IS NOT NULL  | Check for null values              |  WHERE email IS NULL                    |
+
+- % → any number of characters in LIKE
+- _ → exactly one character in LIKE
+
+### 12. Common Data Types
+
+    | Data Type                       | Description                                         | Example                              |
+    | ------------------------------- | --------------------------------------------------- | ------------------------------------ |
+    |  INTEGER  /  INT                | Whole numbers                                       |  age INTEGER                         |
+    |  SERIAL                         | Auto-incrementing integer (usually for primary key) |  id SERIAL PRIMARY KEY               |
+    |  BIGINT                         | Large whole numbers                                 |  population BIGINT                   |
+    |  DECIMAL(p,s)  /  NUMERIC(p,s)  | Exact decimal numbers (p = precision, s = scale)    |  price DECIMAL(10,2)                 |
+    |  REAL  /  FLOAT                 | Approximate floating-point numbers                  |  rating REAL                         |
+    |  VARCHAR(n)                     | Variable-length string with max length 'n'          |  username VARCHAR(50)                |
+    |  TEXT                           | Variable-length string (no max length)              |  bio TEXT                            |
+    |  BOOLEAN                        | True / False values                                 |  is_active BOOLEAN                   |
+    |  DATE                           | Calendar date (YYYY-MM-DD)                          |  birth_date DATE                     |
+    |  TIME                           | Time of day (HH\:MM\:SS)                            |  login_time TIME                     |
+    |  TIMESTAMP                      | Date and time                                       |  created_at TIMESTAMP DEFAULT NOW()  |
+    |  BYTEA                          | Binary data (e.g., files)                           |  file_data BYTEA                     |
+    |  JSON  /  JSONB                 | JSON data                                           |  metadata JSONB                      |
+
+- Use SERIAL only for auto-increment primary keys
+- Use TEXT if string length is unpredictable
+- Use DECIMAL or NUMERIC for financial calculations to avoid float rounding errors
+- Use BOOLEAN for flags like is_admin
