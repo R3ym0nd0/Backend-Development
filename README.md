@@ -16,7 +16,7 @@ Backend-Development/
 │     │
 │     └── Flask/ # (Planned) Flask learning path
 │
-└── Databases/ # (Planned) Will include MongoDB, SQL, etc.
+└── Databases/ # MongoDB, PostgreSQL, etc.
 ```
 
 ---
@@ -25,17 +25,15 @@ Backend-Development/
 
 This repo serves as my **backend development knowledge base**:
 - 📝 **Notes**: My own summaries, examples, and references for backend frameworks.
-- 🛠 **Projects**: Small practice projects to apply backend concepts.
-- 🚀 **Future Expansion**: Plans to learn and add databases, authentication systems, and deployment workflows.
+- 🛠 **Basic Projects**: Small practice projects to apply backend concepts.
 
 ---
 
 ## 🎯 Goals
 
-- Build a solid foundation in backend frameworks like Express.js and Flask.
-- Learn to work with databases (MongoDB, SQL, etc.).
+- Build a solid foundation in backend frameworks like Express.js.
+- Learn to work with databases.
 - Practice creating APIs and server-side applications.
-- Explore advanced backend patterns and architectures.
 
 ---
 
