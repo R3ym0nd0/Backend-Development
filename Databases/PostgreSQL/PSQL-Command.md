@@ -107,3 +107,16 @@ Remove rows:
 - Use TEXT if string length is unpredictable
 - Use DECIMAL or NUMERIC for financial calculations to avoid float rounding errors
 - Use BOOLEAN for flags like is_admin
+
+### 13. Limiting & Pagination
+
+    SELECT * FROM users
+    SELECT * FROM users OFFSET 5 FETCH 5 ROW ONLY;
+
+or
+
+    SELECT * FROM users OFFSET 5 LIMIT 5;
+
+- LIMIT → how many rows you want to return
+- OFFSET → how many rows to skip before starting to return
+- FETCH → standard SQL alternative to LIMIT
