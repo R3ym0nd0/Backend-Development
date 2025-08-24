@@ -120,3 +120,14 @@ or
 - LIMIT → how many rows you want to return
 - OFFSET → how many rows to skip before starting to return
 - FETCH → standard SQL alternative to LIMIT
+
+### 14. GROUP BY and GROUP BY HAVING
+    SELECT student AS is_student, COUNT(*) AS total_users FROM users GROUP BY student;
+
+and
+
+    SELECT student AS is_student, COUNT(*) AS total_users FROM users GROUP BY student HAVING COUNT(*) > 5;
+
+- GROUP BY → groups rows that have the same value in a column
+- COUNT(*) → counts rows in each group
+- HAVING → filter groups (different from WHERE, which filters rows)
