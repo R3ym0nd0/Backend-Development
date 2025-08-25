@@ -131,3 +131,36 @@ and
 - GROUP BY → groups rows that have the same value in a column
 - COUNT(*) → counts rows in each group
 - HAVING → filter groups (different from WHERE, which filters rows)
+
+### 15. Aggregate Functions
+
+    SELECT COUNT(*) FROM users;
+    
+    SELECT SUM(salary) FROM users;
+ 
+    SELECT MIN(salary) FROM users;
+
+    SELECT MAX(salary) FROM users;
+
+    SELECT AVG(salary) FROM users;
+
+    SELECT ROUND(AVG(salary), 2) FROM users;
+
+- COUNT(*) → Counts all rows, even if columns have NULLs.
+- COUNT(column) → Counts only non-NULL values in that column.
+- SUM(), MIN(), MAX(), AVG() all ignore NULL values.
+- Use ROUND() to format decimals for cleaner results.
+
+### 16. Arithmetic Operators
+
+    SELECT 5 + 3 AS sum;
+    
+    SELECT 5 - 3 AS difference;
+    
+    SELECT 5 * 3 AS product;
+    
+    SELECT 10 / 2 AS quotient;
+    
+    SELECT 10 % 3 AS remainder;
+
+- % → Modulus (some databases use MOD(x, y) instead)
