@@ -1,0 +1,209 @@
+# PostgreSQL Keywords/Statements and Examples
+
+### 1. Create Tables
+
+    CREATE TABLE users (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(50) NOT NULL UNIQUE,
+        password VARCHAR(50) NOT NULL
+    );  
+
+- id → auto-incrementing unique ID
+- username → text, must be unique, cannot be empty
+- password → text, cannot be empty
+
+### 2. Insert Data
+
+Add rows into your table:
+
+    INSERT INTO users (username, password)
+    VALUES (LOWER('reymond'), 'mypassword123');
+
+### 3. Read Data (SELECT)
+
+See what’s inside:
+
+    SELECT * FROM users;
+
+### 4. Update Data
+
+Change Something:
+
+    UPDATE users
+    SET password = 'newpassword123'
+    WHERE username = 'reymond';
+
+### 5. Delete Data
+
+Remove rows:
+
+    DELETE FROM users
+    WHERE username = 'reymond';
+
+### 6. Drop Table (Delete table)
+
+    DROP TABLE users;
+
+### 7. Safe Login Query (Parameterized Query)
+
+    SELECT * FROM users WHERE LOWER(username) = LOWER($1) AND password = $2', [username, password]
+
+### 8. Sorting
+
+    SELECT username, password
+    FROM users
+    ORDER BY username ASC, password DESC;
+
+### 9. Remove Duplicates
+
+    SELECT DISTINCT username
+    FROM users;
+
+### 10. Add a new column to an existing table
+
+    ALTER TABLE users
+    ADD COLUMN email VARCHAR(100),
+    ADD COLUMN created_at TIMESTAMP DEFAULT NOW(),
+    ADD COLUMN age INTEGER;
+
+### 11. Comparison Operator
+
+| Operator                  | Meaning                            | Example                                 |
+| ------------------------- | ---------------------------------- | --------------------------------------- |
+|  =                        | Equal to                           |  WHERE age = 18                         |
+|  <>                       | Not equal to (standard SQL)        |  WHERE age <> 18                        |
+|  !=                       | Not equal to (works in PostgreSQL) |  WHERE age != 18                        |
+|  >                        | Greater than                       |  WHERE age > 18                         |
+|  <                        | Less than                          |  WHERE age < 18                         |
+|  >=                       | Greater than or equal              |  WHERE age >= 18                        |
+|  <=                       | Less than or equal                 |  WHERE age <= 18                        |
+|  BETWEEN ... AND ...      | Inclusive range                    |  WHERE age BETWEEN 18 AND 30            |
+|  IN (...)                 | Matches any in a list              |  WHERE username IN ('reymond','admin')  |
+|  LIKE                     | Pattern match                      |  WHERE username LIKE 'rey%'             |
+|  IS NULL  /  IS NOT NULL  | Check for null values              |  WHERE email IS NULL                    |
+
+- % → any number of characters in LIKE
+- _ → exactly one character in LIKE
+
+### 12. Common Data Types
+
+| Data Type                       | Description                                         | Example                              |
+| ------------------------------- | --------------------------------------------------- | ------------------------------------ |
+|  INTEGER  /  INT                | Whole numbers                                       |  age INTEGER                         |
+|  SERIAL                         | Auto-incrementing integer (usually for primary key) |  id SERIAL PRIMARY KEY               |
+|  BIGINT                         | Large whole numbers                                 |  population BIGINT                   |
+|  DECIMAL(p,s)  /  NUMERIC(p,s)  | Exact decimal numbers (p = precision, s = scale)    |  price DECIMAL(10,2)                 |
+|  REAL  /  FLOAT                 | Approximate floating-point numbers                  |  rating REAL                         |
+|  VARCHAR(n)                     | Variable-length string with max length 'n'          |  username VARCHAR(50)                |
+|  TEXT                           | Variable-length string (no max length)              |  bio TEXT                            |
+|  BOOLEAN                        | True / False values                                 |  is_active BOOLEAN                   |
+|  DATE                           | Calendar date (YYYY-MM-DD)                          |  birth_date DATE                     |
+|  TIME                           | Time of day (HH\:MM\:SS)                            |  login_time TIME                     |
+|  TIMESTAMP                      | Date and time                                       |  created_at TIMESTAMP DEFAULT NOW()  |
+|  BYTEA                          | Binary data (e.g., files)                           |  file_data BYTEA                     |
+|  JSON  /  JSONB                 | JSON data                                           |  metadata JSONB                      |
+
+- Use SERIAL only for auto-increment primary keys
+- Use TEXT if string length is unpredictable
+- Use DECIMAL or NUMERIC for financial calculations to avoid float rounding errors
+- Use BOOLEAN for flags like is_admin
+
+### 13. Limiting & Pagination
+
+    SELECT * FROM users
+    SELECT * FROM users OFFSET 5 FETCH 5 ROW ONLY;
+
+or
+
+    SELECT * FROM users OFFSET 5 LIMIT 5;
+
+- LIMIT → how many rows you want to return
+- OFFSET → how many rows to skip before starting to return
+- FETCH → standard SQL alternative to LIMIT
+
+### 14. GROUP BY and GROUP BY HAVING
+    SELECT student AS is_student, COUNT(*) AS total_users FROM users GROUP BY student;
+
+and
+
+    SELECT student AS is_student, COUNT(*) AS total_users FROM users GROUP BY student HAVING COUNT(*) > 5;
+
+- GROUP BY → groups rows that have the same value in a column
+- COUNT(*) → counts rows in each group
+- HAVING → filter groups (different from WHERE, which filters rows)
+
+### 15. Aggregate Functions
+
+    SELECT COUNT(*) FROM users;
+    
+    SELECT SUM(salary) FROM users;
+ 
+    SELECT MIN(salary) FROM users;
+
+    SELECT MAX(salary) FROM users;
+
+    SELECT AVG(salary) FROM users;
+
+    SELECT ROUND(AVG(salary), 2) FROM users;
+
+- COUNT(*) → Counts all rows, even if columns have NULLs.
+- COUNT(column) → Counts only non-NULL values in that column.
+- SUM(), MIN(), MAX(), AVG() all ignore NULL values.
+- Use ROUND() to format decimals for cleaner results.
+
+### 16. Arithmetic Operators
+
+    SELECT 5 + 3 AS sum;
+    
+    SELECT 5 - 3 AS difference;
+    
+    SELECT 5 * 3 AS product;
+    
+    SELECT 10 / 2 AS quotient;
+    
+    SELECT 10 % 3 AS remainder;
+
+- % → Modulus (some databases use MOD(x, y) instead)
+
+### 17. COALESCE & NULLIF
+
+    SELECT COALESCE(NULLIF(username, 'reymond'), 'i dont like this name') as check_reymond FROM users;
+
+- NULLIF → returns NULL if two values are equal
+- COALESCE → returns first non-NULL value
+- All values in COALESCE should be same/compatible data type
+
+### 18. DATES
+
+    SELECT NOW() + INTERVAL '1 month';
+
+or 
+
+    SELECT CURRENT_TIMESTAMP + INTERVAL '1 month';
+
+or
+
+    SELECT CURRENT_DATE + INTERVAL '2 years';
+
+or
+
+    SELECT CURRENT_TIME + INTERVAL '21 hours';
+
+- NOW() & CURRENT_TIMESTAMP → full date + time
+- CURRENT_DATE → just the date
+- CURRENT_TIME → just the time
+- You can only use + and - operators with dates
+  
+### 19. Extracting Fields From Timestamp
+
+    SELECT EXTRACT(YEAR FROM NOW());  
+
+    SELECT EXTRACT(MONTH FROM NOW());  
+    
+    SELECT EXTRACT(DAY FROM NOW());     
+
+    SELECT EXTRACT(HOUR FROM NOW());   
+
+    SELECT EXTRACT(MINUTE FROM NOW());  
+
+    SELECT EXTRACT(SECOND FROM NOW()); 
