@@ -194,16 +194,51 @@ or
 - CURRENT_TIME → just the time
 - You can only use + and - operators with dates
   
-### 19. Extracting Fields From Timestamp
+
+### 19. Extracting Fields from Timestamp
+
+Year/s
 
     SELECT EXTRACT(YEAR FROM NOW());  
 
+Month/s
+
     SELECT EXTRACT(MONTH FROM NOW());  
-    
+
+Day/s
+
     SELECT EXTRACT(DAY FROM NOW());     
+
+Hour/s
 
     SELECT EXTRACT(HOUR FROM NOW());   
 
+Minute/s
+
     SELECT EXTRACT(MINUTE FROM NOW());  
 
-    SELECT EXTRACT(SECOND FROM NOW()); 
+Second/s
+
+    SELECT EXTRACT(SECOND FROM NOW());
+
+### 20. Converting Data Types into Another 
+
+    SELECT CAST('2025-08-27' AS DATE);
+
+    SELECT CAST(123 AS INTEGER);
+
+    SELECT CAST(123 AS TEXT);
+
+    SELECT CAST('123.45' AS NUMERIC);
+
+or
+
+    SELECT '2025-08-27'::DATE;
+
+    SELECT 123::INTEGER;
+
+    SELECT '123.45'::NUMERIC;
+
+- CAST(value AS type) → standard SQL way.
+- value::type → PostgreSQL shorthand, quicker to type.
+- Make sure the value can actually be converted (e.g., 'abc'::INTEGER will throw an error).
