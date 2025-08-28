@@ -25,7 +25,7 @@ See what’s inside:
 
     SELECT * FROM users;
 
-### 4. Update Data
+### 4. Updating Records
 
 Change Something:
 
@@ -33,12 +33,19 @@ Change Something:
     SET password = 'newpassword123'
     WHERE username = 'reymond';
 
-### 5. Delete Data
+### 5. Deleting Records
 
-Remove rows:
+If you wanna delete a specific row in a table:
 
-    DELETE FROM users
-    WHERE username = 'reymond';
+    SELECT * FROM users WHERE id = 1;
+
+or 
+
+If you wanna delete all rows in a table:
+
+    TRUNCATE TABLE users;
+
+- When using `DELETE`, always use `WHERE` (unless you’re sure you want everything gone).
 
 ### 6. Drop Table (Delete table)
 
@@ -242,3 +249,38 @@ or
 - CAST(value AS type) → standard SQL way.
 - value::type → PostgreSQL shorthand, quicker to type.
 - Make sure the value can actually be converted (e.g., 'abc'::INTEGER will throw an error).
+
+### 21. Age Function
+
+Age from a given date to now
+
+    SELECT AGE('1995-08-28');
+
+or
+
+Difference between two timestamps
+
+    SELECT AGE('2025-12-31', '2020-01-01');
+
+- Returns an `interval` or detailed time span like 30 years 0 mons 0 days.
+
+### 22. ON CONFLICT DO NOTHING
+
+    INSERT INTO users (id)
+    VALUES (5)
+    ON CONFLICT (5) DO NOTHING;
+
+- No error is thrown if a duplicate exists.
+- Keeps applications running smoothly without crashing in real world.
+- You can only use columns with `constraints (UNIQUE or PRIMARY KEY)` when using `ON CONFLICT()`.
+
+### 23. Upsert
+
+    INSERT INTO users (id, name)
+    VALUES (5, 'John Doe')
+    ON CONFLICT (email)
+    DO UPDATE SET name = EXCLUDED.name;
+
+- `UPSERT` = Update + Insert in one shot.
+- Prevents duplicate errors and keeps your data current.
+- `EXCLUDED` refers to the row you were trying to insert.
