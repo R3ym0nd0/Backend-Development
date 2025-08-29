@@ -284,3 +284,25 @@ Difference between two timestamps
 - `UPSERT` = Update + Insert in one shot.
 - Prevents duplicate errors and keeps your data current.
 - `EXCLUDED` refers to the row you were trying to insert.
+
+### 24. Setting Up Table Relationships with Foreign Keys
+
+1st Table:
+
+    CREATE TABLE users (
+        user_id SERIAL PRIMARY KEY,  -- PK: Unique for every user
+        username VARCHAR(50) NOT NULL,
+        email VARCHAR(100) UNIQUE NOT NULL
+    );
+
+2nd Table:
+
+    CREATE TABLE orders (
+        order_id SERIAL PRIMARY KEY,
+        order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        amount DECIMAL(10,2) NOT NULL,
+        user_id INT REFERENCES users(user_id)  -- FK: links to users.user_id
+    );
+
+- `user_id INT REFERENCES users(user_id)` is where the magic happens.
+- This says: The user_id in orders must exist in users.user_id.
