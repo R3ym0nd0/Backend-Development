@@ -268,7 +268,7 @@ Difference between two timestamps
 
     INSERT INTO users (id)
     VALUES (5)
-    ON CONFLICT (5) DO NOTHING;
+    ON CONFLICT (id) DO NOTHING;
 
 - No error is thrown if a duplicate exists.
 - Keeps applications running smoothly without crashing in real world.
@@ -305,14 +305,63 @@ Difference between two timestamps
 
 - `FOREIGN KEY (user_id) REFERENCES users(user_id)` is where the magic happens.
 
-### 25. Connect Tables with a JOIN
+### 25. Connect Tables with a INNER JOIN
+
+    SELECT 
+        users.username, 
+        orders.product_name
+    FROM 
+        users
+    INNER JOIN 
+        orders
+    ON 
+        users.user_id = orders.user_id;
+
+- Only returns `rows that have matches in both tables`.
+- If there’s no matching order, it will not return.
+
+### 26. Connect Tables with LEFT JOIN
 
     SELECT 
         users.username,
         orders.product_name
-    FROM 
+    FROM
         users
-    JOIN 
+    LEFT JOIN
         orders
-    ON 
+    ON
         users.user_id = orders.user_id;
+
+- Returns `all rows from the left table (users)`, even if there’s no match in the right table (orders).
+- If there’s no matching order, orders.product_name will be NULL.
+
+### 27. Connect Tables with RIGHT JOIN
+
+    SELECT 
+        users.username,
+        orders.product_name
+    FROM
+        users
+    RIGHT JOIN
+        orders
+    ON
+        users.user_id = orders.user_id;
+
+
+- Returns `all rows from the right table(orders)`, even if there’s no match in the left table(users).
+- If there’s no matching user, users.username will be NULL.
+
+## 28. Connect Tables with FULL OUTER JOIN
+
+    SELECT 
+        users.username,
+        orders.product_name
+    FROM
+        users
+    FULL OUTER JOIN
+        orders
+    ON
+        users.user_id = orders.user_id;
+
+- Returns `all rows from both tables`.
+- If there’s no matching row in either table, the missing side will show `NULL`.
