@@ -365,3 +365,72 @@ Difference between two timestamps
 
 - Returns `all rows from both tables`.
 - If there’s no matching row in either table, the missing side will show `NULL`.
+
+### 29. Index in SQL
+
+    CREATE INDEX idx_email ON users(email);
+    SELECT * FROM users WHERE email = 'example@example.com';
+
+- Indexes are like a table of contents: they make searches faster.
+- Without an index, SQL does a full table scan, checking every row.
+- With an index, SQL jumps directly to matching rows.
+- Indexes speed up SELECTs but slow down INSERT, UPDATE, DELETE because the index must also be updated.
+- Common types: PRIMARY KEY (auto-indexed), UNIQUE, composite, full-text.
+
+### 30. Constraints in SQL
+
+    CREATE TABLE users (
+        id INT PRIMARY KEY,
+        email VARCHAR(100) UNIQUE,
+        username VARCHAR(50) NOT NULL,
+        age INT CHECK(age >= 18)
+    );
+
+- Constraints are rules to keep data valid.
+- Types of constraints: PRIMARY KEY, UNIQUE, NOT NULL, FOREIGN KEY, CHECK, DEFAULT.
+- PRIMARY KEY and UNIQUE constraints auto-create indexes.
+- Other constraints (NOT NULL, CHECK, FOREIGN KEY) do not automatically create indexes.
+
+### 31. Updating Foreign Keys
+
+    UPDATE orders
+    SET user_id = 5
+    WHERE user_id = 2;
+
+- Updating values: changing the foreign key column in child table.
+- Updating rules/behavior: use ALTER TABLE to modify foreign key constraints (e.g., add CASCADE).
+- Must drop the old constraint first before adding a new one with different rules.
+
+### 32. CONSTRAINT Keyword
+
+    CONSTRAINT fk_user
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+
+- CONSTRAINT is used to name a foreign key (or other constraint).
+- Naming constraints makes it easier to drop or alter later.
+- Applies to PRIMARY KEY, UNIQUE, FOREIGN KEY, CHECK, etc.
+
+### 33. CASCADE in Foreign Keys
+
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+
+- ON UPDATE CASCADE → child table auto-updates if parent key changes.
+- ON DELETE CASCADE → child rows auto-delete if parent row is deleted.
+- Without CASCADE → updates or deletes must be done manually.
+- Other options: SET NULL, RESTRICT, NO ACTION.
+
+### 34. Deleting Records With Foreign Keys
+
+    -- Without CASCADE
+    DELETE FROM users WHERE id = 2;  -- fails if child rows exist
+
+    -- With CASCADE
+    DELETE FROM users WHERE id = 2;  -- child rows in orders deleted automatically
+
+- Without CASCADE → manual deletion of child rows required.
+- With CASCADE → deletion propagates automatically.
+- Prevents orphaned child rows and keeps database consistent.
