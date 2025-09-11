@@ -16,7 +16,7 @@ Backend-Development/
 │
 ├── Databases/ # MongoDB, PostgreSQL, etc.
 |
-└── Security/ # bcrpt, dotenv, helmet, cors etc.
+└── Security/ # bcrypt, dotenv, helmet, cors etc.
 ```
 
 ---
