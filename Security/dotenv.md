@@ -2,7 +2,7 @@
 
     require('dotenv').config();
 
-Database setup
+Database setup using `dotenv`:
 
     const pool = new Pool({
         connectionString: process.env.DATABASE_URL,
@@ -11,7 +11,7 @@ Database setup
     }
     });
 
-Session setup
+Session setup using `dotenv`:
 
     app.use(session({
         store: new pgSession({ 
