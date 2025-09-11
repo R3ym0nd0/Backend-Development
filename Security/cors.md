@@ -20,6 +20,6 @@ cors setup in frontend:
     
 - `cors` → controls which frontend origins can access your backend.
 - `origin` → defines allowed domains (e.g., localhost, production domain).
-- `credentials: "true"` → allows cookies/sessions to be shared across frontend + backend.
+- `credentials: true` → allows cookies/sessions to be shared across frontend + backend.
 - `credentials: "include"` → send cookies with the request (needed for login sessions).
 - `Prevents unauthorized domains` from making requests to your API.
