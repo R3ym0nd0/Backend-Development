@@ -10,13 +10,13 @@ A personal repository for my backend development learning journey — from funda
 Backend-Development/
 │
 ├── Frameworks/
-│     ├── Express/
-│     │     ├── Basic_Projects/ # Small Express.js projects
-│     │     └── Express-Notes/ # Express.js notes
-│     │
-│     └── Flask/ # (Planned) Flask learning path
+│     └── Express/
+│           ├── Basic_Projects/ # Small Express.js projects
+│           └── Express-Notes/ # Express.js notes
 │
-└── Databases/ # MongoDB, PostgreSQL, etc.
+├── Databases/ # MongoDB, PostgreSQL, etc.
+|
+└── Security/ # bcrpt, dotenv, helmet, cors etc.
 ```
 
 ---
