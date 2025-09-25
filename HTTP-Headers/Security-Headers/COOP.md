@@ -17,7 +17,7 @@
 
 ### Tips & Best Practices
 
-- Use `same-origin` for most sites — it’s simple and effective.
+- Use `same-origin` for most sites.
 - Use `same-origin-allow-popups` only if your site needs popups that interact with the opener.
 - Combine COOP with `COEP (Cross-Origin-Embedder-Policy)` if your site uses SharedArrayBuffer or other sensitive features.
 - Consider also using `rel="noopener noreferrer" for _blank links` as an extra layer of per-link protection.
